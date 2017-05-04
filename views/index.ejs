@@ -10,7 +10,7 @@
 </body>
 
 <script>
-    $.get('/keys', function(keys){
+    $.get('/keys/NEWS*', function(keys){
         keys.forEach(function (key, index) {
             $('body').append('<p>' + key + '</p>')
         });

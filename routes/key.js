@@ -7,7 +7,8 @@
 var r = require("../redis/redis");
 
 exports.keys = function (req, res, next) {
-    r.getKeys("*", function (err, keys) {
+    console.log(req.params.pattern);
+    r.getKeys(req.params.pattern, function (err, keys) {
         if (!err) {
             return res.send(keys);
         } else {

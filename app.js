@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
 })
 
 var key = require("./routes/key");
-app.get('/keys', key.keys);
+app.get('/keys/:pattern', key.keys);
 
 var server = app.listen(app.get('port'), function () {
     var host = server.address().address;
