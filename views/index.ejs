@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+
+</body>
+
+<script>
+    $.get('/keys', function(keys){
+        keys.forEach(function (key, index) {
+            $('body').append('<p>' + key + '</p>')
+        });
+    });
+</script>
+</html>
