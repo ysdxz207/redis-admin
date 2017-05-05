@@ -1,0 +1,30 @@
+[
+  {
+    "name": "新闻",
+    "pattern": "NEWS*"
+  },
+  {
+    "name": "新闻1",
+    "pattern": "NEWS*"
+  },
+  {
+    "name": "新闻2",
+    "pattern": "NEWS*"
+  },
+  {
+    "name": "新闻3",
+    "pattern": "NEWS*"
+  },
+  {
+    "name": "新闻4",
+    "pattern": "NEWS*"
+  },
+  {
+    "name": "新闻5",
+    "pattern": "NEWS*"
+  },
+  {
+    "name": "新闻6",
+    "pattern": "NEWS*"
+  }
+]

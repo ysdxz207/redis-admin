@@ -1,0 +1,46 @@
+<div class="container">
+    <nav class="nav">
+        <div class="nav-left">
+
+        </div>
+        <div class="nav-right">
+            <nav class="nav-item level">
+
+            </nav>
+        </div>
+    </nav>
+</div>
+
+<script>
+    var nav = {
+        navs: [
+            {
+                "name": "首页",
+                "link": "/",
+                "code": "index"
+            },
+            {
+                "name": "标签",
+                "code": "tag",
+                "link": "/tag"
+            }
+        ]
+    };
+    (function (nav) {
+        nav.bulid = function () {
+            var current = $('.active').val();
+
+            nav.navs.forEach(function (obj, index) {
+                var active = '';
+                if (obj.code === current) {
+                    active = 'is-active';
+                }
+                $('.nav-left').append(
+                    '<a class="nav-item is-tab ' + active +
+                    '" href="' + obj.link + '">' + obj.name + '</a>');
+            });
+        };
+
+        nav.bulid();
+    })(nav)
+</script>

@@ -1,0 +1,53 @@
+@import "bulma";
+
+ul li {
+  list-style: decimal;
+}
+
+#search_result_content li {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: $primary;
+  color: white;
+}
+
+.position-fixed {
+  position: fixed;
+  top: inherit;
+}
+
+.over-y-scroll {
+  overflow-y: scroll;
+  max-height: 800px;
+}
+
+.color-primary {
+  color: $danger;
+}
+
+#message_box {
+  text-align: left;
+}
+
+.fix-height {
+  max-height: 10px;
+}
+
+.search-drop-down {
+  position: absolute;
+  float: left;
+  z-index: 999;
+  background-color: white;
+  line-height: 30px;
+  border: 1px solid $primary;
+}
+
+.search-drop-down li {
+  list-style: none;
+}
+
+.hide {
+  display: none;
+}

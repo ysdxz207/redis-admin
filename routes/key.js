@@ -7,7 +7,6 @@
 var r = require("../redis/redis");
 
 exports.keys = function (req, res, next) {
-    console.log(req.params.pattern);
     r.getKeys(req.params.pattern, function (err, keys) {
         if (!err) {
             return res.send(keys);
@@ -15,4 +14,24 @@ exports.keys = function (req, res, next) {
             return res.send(err);
         }
     });
+};
+
+exports.get = function (req, res, next) {
+    r.get(req.params.key, function (err, value) {
+        if (!err) {
+            return res.send(value);
+        } else {
+            return res.send(err);
+        }
+    })
+};
+
+exports.del = function (req, res, next) {
+    r.del(req.params.key, function (err, num) {
+        if (!err) {
+            return res.send(true);
+        } else {
+            return res.send(err);
+        }
+    })
 };

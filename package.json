@@ -8,17 +8,19 @@
   "author": "ysdxz207",
   "license": "MIT",
   "devDependencies": {
+    "bulma": "^0.4.0",
+    "clipboard": "^1.6.1",
+    "ejs": "^1.0.0",
+    "express": "^4.15.2",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-concat": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-contrib-requirejs": "^1.0.0",
-    "redis": "^2.7.1",
-    "express": "^4.15.2",
     "jquery": "^3.2.1",
-    "ejs": "^1.0.0"
+    "redis": "^2.7.1",
+    "fs": "0.0.1-security"
   }
 }

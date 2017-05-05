@@ -1,0 +1,121 @@
+<div class="tile is-parent is-vertical is-3">
+    <div class="tile is-child fix-height">
+        <div class="field has-addons">
+            <p class="control has-icon is-fullwidth">
+                <input class="input" type="text" placeholder="搜索key" id="query">
+                <span class="icon is-small">
+                    <i class="fa fa-search"></i>
+                </span>
+            </p>
+            <p class="control">
+                <button class="button is-primary" id="search">
+                    搜索
+                </button>
+            </p>
+        </div>
+        <div class="field">
+            <ul class="control search-drop-down hide">
+            </ul>
+        </div>
+    </div>
+    <article class="tile is-child">
+        <div class="content over-y-scroll">
+            <ul id="search_result_content">
+
+            </ul>
+        </div>
+    </article>
+</div>
+
+<script>
+    var left = {};
+    (function (left) {
+        left.listKeys = function () {
+            console.log('refresh');
+            var query = $('#query').val();
+            query = !query ? '*': query;
+            keyutil.keys(query, function (keys) {
+                var searchContent = $('#search_result_content');
+                searchContent.empty();
+                keys.forEach(function (key, index) {
+                    var li = $('<li>' + key + '</li>');
+                    li.on('click', function () {
+                        var li = $(this);
+                        li.parent().children().each(function (index, li) {
+                            $(li).removeClass('selected');
+                        });
+                        li.addClass('selected');
+                        //显示值
+                        left.getShow(key);
+                    });
+                    searchContent.append(li);
+                });
+            });
+
+        };
+
+        left.dropDown = function () {
+            return $('.search-drop-down');
+        };
+
+        left.getShow = function (key) {
+            $('#redis_key').val(key);
+            $.get('/get/' + key, function(value){
+                $('#redis_value').val(value);
+            });
+        };
+
+
+        left.bind = function () {
+            $('#search').on('click', function () {
+                left.listKeys();
+            });
+            $("#query").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    left.listKeys();
+                }
+            }).on('focus', function () {
+                event.stopPropagation();
+                var query = $(this);
+                $.get('/tags', function(tags){
+                    left.dropDown().empty();
+                    tags.forEach(function (tag, index) {
+                        var tagObj = $('<li><a class="tag ' +
+                            left.randomTagColor() +
+                            '">' + tag.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                            tag.pattern + '</a></li>');
+                        tagObj.on('click', function () {
+                            query.val(tag.pattern);
+                            left.dropDown().hide();
+                            left.listKeys();
+                        });
+                        left.dropDown().append(tagObj);
+                    });
+                    left.dropDown().show();
+                });
+            });
+
+            $(document).on('click', function () {
+                var dropDown = left.dropDown();
+                var query = $('#query');
+                if (!dropDown.is(event.target) && !query.is(event.target) && dropDown.has(event.target).length === 0) {
+                    dropDown.hide();
+                }
+            });
+        };
+
+        left.randomTagColor = function () {
+            var arr = ["is-primary", "is-info", "is-success", "is-warning", "is-danger", "is-dark"];
+            var randomIndex = Math.floor(Math.random()*arr.length);
+            return arr[randomIndex];
+        };
+
+        left.init = function () {
+            left.bind();
+            left.listKeys();
+
+        };
+
+        left.init();
+    })(left);
+</script>

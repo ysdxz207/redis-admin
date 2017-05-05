@@ -18,6 +18,15 @@ app.get('/', function (req, res) {
 
 var key = require("./routes/key");
 app.get('/keys/:pattern', key.keys);
+app.get('/get/:key', key.get);
+app.get('/del/:key', key.del);
+
+var tag = require("./routes/tag");
+
+app.get('/tag', tag.tag);
+app.get('/tags', tag.tags);
+
+
 
 var server = app.listen(app.get('port'), function () {
     var host = server.address().address;

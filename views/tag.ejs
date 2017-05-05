@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    <title>标签</title>
     <% include header %>
 </head>
 <body>
-<input type="hidden" class="active" value="index"/>
+<input type="hidden" class="active" value="tag"/>
 <% include nav.ejs%>
 <section class="section">
     <div class="container">
         <div class="tile is-ancestor">
-            <% include index/left %>
-            <% include index/right %>
+            <% include tag/content %>
         </div>
     </div>
 </section>

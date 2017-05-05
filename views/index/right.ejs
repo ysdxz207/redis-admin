@@ -1,0 +1,81 @@
+<div class="tile is-vertical is-parent is-10">
+    <div class="field is-horizontal">
+        <div class="tile is-1 field-label is-normal">
+            <label class="label">key:</label>
+        </div>
+        <div class="tile is-11 field-body">
+            <input class="input" type="text" id="redis_key" readonly data-clipboard-action="copy" data-clipboard-target="#redis_key" size="120">
+            <a class="button is-danger" id="btn_del_redis">删除</a>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="tile is-1 field-label is-normal">
+            <label class="label">值:</label>
+        </div>
+        <div class="tile is-11 field-body">
+            <textarea class="tile is-12" id="redis_value" readonly rows="50">
+
+            </textarea>
+        </div>
+    </div>
+</div>
+
+<div class="tile is-vertical is-parent is-2">
+    <div class="field-label is-normal">
+        <label class="label color-primary" id="message_box"></label>
+    </div>
+</div>
+
+<div class="modal" id="modal_del_confirm">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">提示</p>
+            <button class="delete"></button>
+        </header>
+        <section class="modal-card-body">
+            确定删除？
+        </section>
+        <footer class="modal-card-foot">
+            <a class="button is-success confirm">确定</a>
+            <a class="button cancel">取消</a>
+        </footer>
+    </div>
+</div>
+
+<script>
+    var clipboard = new Clipboard('#redis_key');
+    clipboard.on('success', function (e) {
+        $("#message_box").text("已复制到剪贴板").show().fadeOut(2000);
+
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function (e) {
+        $("#message_box").text("复制失败").show().fadeOut(2000);
+    });
+
+    $('#btn_del_redis').on('click', function () {
+        if (!$('#redis_key').val()) {
+            return;
+        }
+        $('#modal_del_confirm').addClass('is-active');
+    });
+
+    $('.delete,.cancel').on('click', function () {
+        $('#modal_del_confirm').removeClass('is-active');
+    });
+
+    $('.confirm').on('click', function () {
+        $('#modal_del_confirm').removeClass('is-active');
+        //删除
+        keyutil.del($('#redis_key').val(), function (flag) {
+            if (flag === true) {
+                $("#message_box").text("删除成功").show().fadeOut(2000);
+                keyutil.listKeys();
+            } else {
+                $("#message_box").text("删除失败").show().fadeOut(2000);
+            }
+        });
+    });
+</script>

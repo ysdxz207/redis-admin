@@ -21,7 +21,13 @@ client.on("error", function (err) {
 
 
 exports.getKeys = function (pattern, callback) {
-    client.keys(pattern, function (err, replies) {
-        callback(err, replies);
-    });
+    client.keys(pattern, callback);
+};
+
+exports.get = function(key, callback) {
+    client.get(key, callback);
+};
+
+exports.del = function(key, callback) {
+    client.del(key, callback);
 };
