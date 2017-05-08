@@ -31,7 +31,6 @@
     var left = {};
     (function (left) {
         left.listKeys = function () {
-            console.log('refresh');
             var query = $('#query').val();
             query = !query ? '*': query;
             keyutil.keys(query, function (keys) {
@@ -73,6 +72,7 @@
             $("#query").keydown(function (e) {
                 if (e.keyCode == 13) {
                     left.listKeys();
+                    left.dropDown().hide();
                 }
             }).on('focus', function () {
                 event.stopPropagation();
@@ -82,10 +82,10 @@
                     tags.forEach(function (tag, index) {
                         var tagObj = $('<li><a class="tag ' +
                             left.randomTagColor() +
-                            '">' + tag.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-                            tag.pattern + '</a></li>');
+                            '">' + tag.key + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                            tag.value + '</a></li>');
                         tagObj.on('click', function () {
-                            query.val(tag.pattern);
+                            query.val(tag.value);
                             left.dropDown().hide();
                             left.listKeys();
                         });

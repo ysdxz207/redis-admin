@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>标签</title>
     <% include header %>
+    <script src="js/tagutil.js"></script>
 </head>
 <body>
 <input type="hidden" class="active" value="tag"/>
@@ -11,9 +12,110 @@
 <section class="section">
     <div class="container">
         <div class="tile is-ancestor">
-            <% include tag/content %>
+            <div class="tile is-parent is-vertical">
+                <div class="tile is-child is-4">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">标签名：</label>
+                        </div>
+                        <div class="field-body">
+                            <input type="text" class="input" id="tag_key">
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">值：</label>
+                        </div>
+                        <div class="field-body">
+                            <input type="text" class="input" id="tag_value">
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label"></div>
+                        <div class="field-body">
+                            <button type="button" class="button is-primary" id="btn_set_tag">添加/修改</button>
+                            &nbsp;
+                            <button type="button" class="button is-danger" id="btn_del_tag">删除</button>
+                            <label class="label color-primary" id="message_box"></label>
+                        </div>
+                    </div>
+                </div>
+                <table class="table tile is-child">
+                    <thead>
+                    <tr>
+                        <th>标签名</th>
+                        <th>值</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 </section>
 </body>
+<script>
+    var tag = {};
+    (function (tag) {
+        tag.fillTable = function () {
+            $('tbody').empty();
+            tagutil.tags(function (tags) {
+                tags.forEach(function (tag, index) {
+                    var tr = $('<tr><td>' + tag.key + '</td><td>' + tag.value + '</td></tr>');
+                    tr.on('click', function () {
+                        $('#tag_key').val(tag.key);
+                        $('#tag_value').val(tag.value);
+                    });
+                    $('tbody').append(tr);
+                });
+            });
+        };
+
+        tag.bind = function () {
+          $('#btn_set_tag').on('click', function () {
+                var key = $('#tag_key').val(),
+                    value = $('#tag_value').val();
+
+                if (!key || !value) {
+                    return;
+                }
+
+                tagutil.set(key, value, function (ok) {
+                    if (ok) {
+                        $('#message_box').text("操作成功").show().fadeOut(2000);
+                        tag.fillTable();
+                    }
+                });
+          });
+
+          $('#btn_del_tag').on('click', function () {
+              var key = $('#tag_key').val();
+
+              if (!key) {
+                  return;
+              }
+              msg.alert('提示', '确认删除？', function (ok) {
+                  if (ok) {
+                      tagutil.del(key, function (ok) {
+                          if (ok) {
+                              $('#message_box').text("删除成功").show().fadeOut(2000);
+                              tag.fillTable();
+                          }
+                      });
+                  }
+              });
+          });
+        };
+
+        tag.init = function() {
+            tag.bind()
+            tag.fillTable();
+        };
+
+        tag.init();
+    })(tag);
+</script>
 </html>

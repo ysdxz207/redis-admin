@@ -35,3 +35,13 @@ exports.del = function (req, res, next) {
         }
     })
 };
+
+exports.update = function (req, res, next) {
+    r.set(req.params.key, req.body.value, function (err, isOk) {
+        if (!err) {
+            return res.send(true);
+        } else {
+            return res.send(err);
+        }
+    })
+};

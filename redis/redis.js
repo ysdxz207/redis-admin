@@ -31,3 +31,7 @@ exports.get = function(key, callback) {
 exports.del = function(key, callback) {
     client.del(key, callback);
 };
+
+exports.set = function (key, value, callback) {
+    client.set(key, value, callback);
+}
