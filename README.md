@@ -19,3 +19,5 @@ var redis = require('redis'),
 `node app.js`
 
 open http://localhost:3000
+
+template use ejs
