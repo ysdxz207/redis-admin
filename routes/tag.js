@@ -5,7 +5,6 @@
  */
 
 var fs = require("fs");
-var tools = require("./tools/tools");
 var map = require("./tools/map");
 
 var confDir = "config",
